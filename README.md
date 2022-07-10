@@ -1,8 +1,8 @@
 # Back-end Todo-App with Node js
 
 Todo-app back-end developed with node js & express.
-The main aim of developing this application is to create a server for Todo-app application builty with vue.
-You can See Pro-Todo-app in below link : 
+The main aim of developing this application is to create a server for Todo-app application built with vVue js.
+You can See Pro-Todo-app client side in below link : 
 
 [Pro-Todo-app Build by Vue js](https://github.com/allmightdude/Pro-Todo-vuejs)
 
