@@ -35,24 +35,6 @@ router.post('/create' , async(req , res) => {
     }
 })
 
-// router.get('/' , async(req , res)=>{
-//     try {
-//         console.log(req.userId);
-//         const tasks = await TaskModel.find({
-//             userId : req.userId
-//         });
-        
-//         res.json({
-//             tasks
-//         })
-//     } catch (error) {
-//         res.status(500).json({
-//             success:false,
-//             error : error
-//         })
-//     }
-// })
-
 router.get('/:date' , async (req , res) => {
     try {   
         const {date} = req.params;

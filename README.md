@@ -20,3 +20,19 @@ MongoDB database is used.
 + Categories specify the number of plans made of their own type.
 + Sort Plans and Tasks By Date.
 + Show plans for the current week
+
+
+## Run Server
+
+setup your MONOG_URI address in ./config/config.env
+
+then
+
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run dev
+```

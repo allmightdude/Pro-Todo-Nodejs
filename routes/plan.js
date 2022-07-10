@@ -23,7 +23,6 @@ router.get('/category' , async (req , res) => {
 
 router.post('/category/create' , async (req , res) => {
     try {
-        // console.log(req.body);
             const {title , icon} = req.body.category;
             const userId = req.userId;
             let cat = await CatModel.create({

@@ -132,60 +132,12 @@ async function refreshToken(req , res){
         });
 
     } catch (error) {
-        console.log(error);
         return res.status(500).send({ message: error });
     }
 }
-// async function refreshToken (req , res){
-//     const {refreshToken : requestToken } = req.body;
-
-//     if(requestToken == null){
-//         res.status(403).json({
-//             message : "Refresh Token is Required!"
-//         })    
-//         return;
-//     }
-
-//     try {
-//         let refreshToken = await RefreshToken.findOne({
-//             token : requestToken,
-//         }).populate({path : "user" , model : "User"});
-
-//         if(!refreshToken){
-//             res.status(403).json({ message: "Refresh token is not in database!" });
-//             return ;
-//         }
-
-
-//         if(RefreshToken.verifyExpiration(refreshToken)){
-//             RefreshToken.findByIdAndRemove(refreshToken._id , {
-//                 useFindAndModify : false
-//             })
-
-//             res.status(403).json({
-//                 message : "Refresh token was expired. Please make a new signin request"
-//             })
-//             return;
-//         }
-
-//         let newAccessToken = jwt.sign({id : refreshToken.user._id} , config , {
-//             expiresIn : config.jwtExpiration
-//         })
-        
-//         console.log(newAccessToken);
-
-//         // res.status(200).json({
-//         //     accessToken : newAccessToken,
-//         //     refreshToken : refreshToken
-//         // });
-//     } catch (error) {
-//         return res.status(500).send({ message: error });
-//     }
-// }
 
 async function getUser(req , res){
     try {
-        // console.log(req.params);
     } catch (error) {
         return res.status(500).send({ message: error });
     }
