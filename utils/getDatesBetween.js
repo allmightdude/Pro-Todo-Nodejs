@@ -5,5 +5,4 @@ module.exports = function getDatesBetween(startDate , endDate){
         dates.push(new Date(currentDate));
         currentDate.setDate(currentDate.getDate() + 1);
     }
-    ;
 }

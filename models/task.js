@@ -27,7 +27,9 @@ const taskSchema = mongoose.Schema({
         type : String,
         required : true
     },
-    userId : String
+    userId : {
+        type : String
+    }
     
 })
 

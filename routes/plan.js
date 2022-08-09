@@ -61,6 +61,7 @@ router.post('/create' , async(req , res) => {
             userId,
         })
 
+        // amount plan with this category +1
         await CatModel.findByIdAndUpdate({
             _id : categoryID
         },
@@ -84,6 +85,7 @@ router.post('/create' , async(req , res) => {
 })
 
 
+// Get Week Plans
 router.post('/' , async (req , res) => {
     try {
         let dates = req.body;
@@ -93,10 +95,8 @@ router.post('/' , async (req , res) => {
             date:{
                 $in : dates
             },
-            userId : req.userId
         }).populate({path : 'tasks' , model : 'Task'})
         
-
         plans.sort(function (a, b) {
             a = a.toString().split('-');
             b = b.toString().split('-');
@@ -119,7 +119,8 @@ router.get('/:date' , async (req , res) => {
     try {
         let {date} = req.params;
         let plans = await PlanModel.find({
-            date : date
+            date : date,
+            userId : req.userId
         }).populate({path : 'tasks' , model : "Task"})
 
         res.status(200).json({
@@ -152,6 +153,37 @@ router.get('/getSinglePlan/:id' , async (req , res) => {
             error : error
         })
     }   
+})
+
+router.delete('/delete/:id' , async (req , res) => {
+    try {
+        let id = req.params.id;
+        
+        let deletedPlan = await PlanModel.findByIdAndDelete({
+            _id : id
+        })
+
+        // amount plan with this category -1
+        await CatModel.findByIdAndUpdate({
+            _id : deletedPlan.categoryID
+        },
+        {
+            $inc : {
+                items : -1
+            }
+        })
+
+        res.status(200).json({
+            success: true,
+            msg : "Plan succussfully deleted!",
+        });
+        
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            error : error
+        })
+    }
 })
 
 module.exports = router;
