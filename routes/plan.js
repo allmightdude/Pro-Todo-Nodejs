@@ -87,7 +87,6 @@ router.post('/create' , async(req , res) => {
 router.post('/' , async (req , res) => {
     try {
         let dates = req.body;
-        console.log(dates);
         let plans = [];
         
         plans = await PlanModel.find({
@@ -121,7 +120,7 @@ router.get('/:date' , async (req , res) => {
         let {date} = req.params;
         let plans = await PlanModel.find({
             date : date
-        })
+        }).populate({path : 'tasks' , model : "Task"})
 
         res.status(200).json({
             success : 200,
