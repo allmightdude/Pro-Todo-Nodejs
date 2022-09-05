@@ -30,7 +30,8 @@ RefreshTokenSchema.statics.createToken = async function (user) {
         
     
         let refreshToken = await _object.save();
-        return refreshToken.token;
+        // return refreshToken.token;
+        return refreshToken;
 
     } catch (error) {
         console.log(error);
@@ -41,8 +42,7 @@ RefreshTokenSchema.statics.createToken = async function (user) {
 }
 
 RefreshTokenSchema.statics.verifyExpiration = (token) => {
-    return token.expiryDate.getTime() < new Date().getTime();
-    console.log('token' , token.expiryDate);
+    return +token.expiryDate< new Date().getTime();
 }
 
 module.exports = mongoose.model('RefreshToken' , RefreshTokenSchema);

@@ -1,5 +1,5 @@
 module.exports = {
     secret  : 'allmightdude-secret-key',
-    jwtExpiration : 3600,
-    jwtRefreshExpiration : 86400,
+    jwtExpiration : 10,
+    jwtRefreshExpiration : 15,
 }
