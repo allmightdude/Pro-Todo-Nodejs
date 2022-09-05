@@ -17,9 +17,9 @@ RefreshTokenSchema.statics.createToken = async function (user) {
         let expiredAt = new Date();
 
         expiredAt.setSeconds(
-            expiredAt.getSeconds() + config.jwtRefreshExpiration
-        )
-            
+          expiredAt.getSeconds() + config.jwtRefreshExpiration
+        );
+
         let _token = uuidv4();
         
         let _object = await new this({
@@ -27,10 +27,9 @@ RefreshTokenSchema.statics.createToken = async function (user) {
             user : user._id ,
             expiryDate : expiredAt.getTime()
         })
-        
+
     
         let refreshToken = await _object.save();
-        // return refreshToken.token;
         return refreshToken;
 
     } catch (error) {
@@ -42,7 +41,7 @@ RefreshTokenSchema.statics.createToken = async function (user) {
 }
 
 RefreshTokenSchema.statics.verifyExpiration = (token) => {
-    return +token.expiryDate< new Date().getTime();
+    return token.expiryDate.getTime() < new Date().getTime();
 }
 
 module.exports = mongoose.model('RefreshToken' , RefreshTokenSchema);

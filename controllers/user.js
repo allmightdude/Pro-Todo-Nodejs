@@ -2,8 +2,6 @@ const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const RefreshToken = require("../models/RefreshToken");
 const config = require("../config/auth.config");
-const { encode } = require("../middlewares/jwt");
-const SECRET_KEY = "some-secret-key";
 
 async function login(req, res) {
   try {
@@ -74,7 +72,6 @@ async function signup(req, res) {
         refreshToken: refreshToken,
         expiryDate: refreshToken.expiryDate,
       });
-      
     } else {
       res.json({
         success: false,
@@ -102,13 +99,13 @@ async function refreshToken(req, res) {
 
   try {
     let refreshToken = await RefreshToken.findOne({
-      token: requestToken,
-    });
+      _id: requestToken._id,
+    }).populate({ path: "user", model: "User" });
 
     if (!refreshToken) {
+      console.log("Refresh token is not in database!");
       return res.status(403).send("Refresh token is not in database!");
     }
-    console.log("Refresh token is not in database!");
 
     if (RefreshToken.verifyExpiration(refreshToken)) {
       await RefreshToken.findOneAndDelete({
@@ -141,16 +138,16 @@ async function refreshToken(req, res) {
   }
 }
 
-async function logout(req , res){
+async function logout(req, res) {
   const refreshToken = req.body.refreshToken;
   try {
     await RefreshToken.findOneAndDelete({
-      _id : refreshToken
-    })
+      token: refreshToken,
+    });
     res.status(200).json({
-      success : true,
-      message : 'You are logged out from your account!'
-    })
+      success: true,
+      message: "You are logged out from your account!",
+    });
   } catch (error) {
     return res.status(500).send({ message: error });
   }
@@ -160,5 +157,5 @@ module.exports = {
   login,
   signup,
   refreshToken,
-  logout
+  logout,
 };
