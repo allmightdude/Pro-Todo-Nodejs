@@ -65,14 +65,16 @@ async function signup(req, res) {
 
       let refreshToken = await RefreshToken.createToken(user);
 
-      res.json({
+      res.status(200).send({
         success: true,
         id: user._id,
         email: user.email,
         name: user.name,
         accessToken: token,
         refreshToken: refreshToken,
+        expiryDate: refreshToken.expiryDate,
       });
+      
     } else {
       res.json({
         success: false,
