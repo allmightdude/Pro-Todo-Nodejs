@@ -81,7 +81,6 @@ router.post("/create", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     let dates = req.body;
-    console.log(dates);
     let plans = [];
 
     plans = await PlanModel.find({
@@ -169,6 +168,7 @@ router.delete("/delete/:id", async (req, res) => {
 
     res.status(200).json({
       success: true,
+      deletedPlan,
       msg: "Plan succussfully deleted!",
     });
   } catch (error) {

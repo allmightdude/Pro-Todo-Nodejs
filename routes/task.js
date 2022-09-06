@@ -4,11 +4,14 @@ const TaskModel = require('../models/task');
 router.post('/create' , async(req , res) => { 
     try {
         const userId = req.userId;
+        console.log(userId);
+
         const {title,
             important,
             checked,
             date,
-            time} = req.body;
+            time
+        } = req.body;
 
         let newTask = await TaskModel.create({
             title,
@@ -37,11 +40,13 @@ router.post('/create' , async(req , res) => {
 
 router.get('/:date' , async (req , res) => {
     try {   
+
         const {date} = req.params;
         const tasks = await TaskModel.find({
             date : date,
             userId : req.userId
         })
+        console.log(tasks);
         res.json({
             tasks
         })
