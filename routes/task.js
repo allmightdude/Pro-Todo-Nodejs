@@ -4,7 +4,6 @@ const TaskModel = require('../models/task');
 router.post('/create' , async(req , res) => { 
     try {
         const userId = req.userId;
-        console.log(userId);
 
         const {title,
             important,
@@ -46,7 +45,7 @@ router.get('/:date' , async (req , res) => {
             date : date,
             userId : req.userId
         })
-        console.log(tasks);
+        
         res.json({
             tasks
         })
